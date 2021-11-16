@@ -1,0 +1,21 @@
+dist: xenial
+language: cpp
+compiler: clang
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-8
+    - libboost-test-dev
+script:
+- gcc --version
+- cmake .
+- cmake --build .
+- cmake --build . --target test
+- cmake --build . --target package
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+  - curl -f -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ugwqw:$BINTRAY_API_KEY "https://api.bintray.com/content/gwqw/otus-cpp/homework/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"

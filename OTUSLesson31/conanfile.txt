@@ -1,0 +1,8 @@
+[requires]
+dlib/19.19@omaralvarez/stable
+
+[generators]
+cmake
+
+[options]
+dlib:enable_lapack=False

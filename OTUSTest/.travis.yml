@@ -1,0 +1,24 @@
+dist: eoan
+language: cpp
+compiler: clang
+# safelist
+branches:
+  only:
+  - master
+
+# install and set g++-8 and boost
+before_install:
+  - sudo apt update
+  - sudo apt -y install libboost-all-dev
+  - sudo apt -y install libopencv-dev
+
+# run
+script:
+- mkdir release
+- cd release/
+- cmake ..
+- cmake --build .
+- cmake --build . --target test
+- cmake --build . --target package
+
+
